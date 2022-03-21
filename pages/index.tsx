@@ -141,11 +141,7 @@ const HomePage: NextPage<Props> = ({count}) => {
         }
       </Grid.Container>
       </InfiniteScroll>
-      <style jsx global>{`
-          p{
-            letter-spacing:0.0px
-          }
-        `}</style> 
+     
     </Layout>
   )
 }

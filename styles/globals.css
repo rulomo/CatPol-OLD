@@ -6,8 +6,23 @@ main {
     box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 p {
-    letter-spacing: 2px;
+    letter-spacing: 0.2px !important;
+}
+
+::placeholder {
+    color: var(--text);
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: var(--text);
 }
 
 /* <color name="colorPrimary">#696963</color>

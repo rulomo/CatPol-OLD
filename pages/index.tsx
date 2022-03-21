@@ -64,15 +64,11 @@ const HomePage: NextPage<Props> = ({count}) => {
   
   return (
     <Layout title='Llista Infraccions'>
-      
-      <Input label="Search" clearable  size="md" rounded bordered css={{display:'grid'}} />
-      
-        
       <InfiniteScroll
           dataLength={page* 30 || 0}
           next={handleNext}
           hasMore={info?.hasNext||false}
-          loader={<h4>Loading...</h4>}
+          loader={<h4>Loading...</h4>}          
         >
           <Grid.Container  gap={2} justify='flex-start' css={{ mt: 0, p: 0}}>
         {

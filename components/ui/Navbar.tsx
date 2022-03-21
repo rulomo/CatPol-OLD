@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import NextLink from 'next/link';
-import { Spacer, Text, useTheme, Link } from '@nextui-org/react';
+import { Spacer, Text, useTheme, Link, Input } from '@nextui-org/react';
 
 
 export const Navbar = () => {
@@ -10,6 +10,7 @@ export const Navbar = () => {
     return (
         <div style={{
             display: 'flex',
+            height:'76px',
             width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
@@ -27,17 +28,13 @@ export const Navbar = () => {
             <NextLink href="/" passHref>
                 <Link>
                     <Text color='white' h2>C</Text>
-                    <Text color='white' h3>atpol</Text>
-                    
+                    <Text color='white' h3>atpol</Text>                    
                 </Link>
             </NextLink>            
             <Spacer css={{ flex: 1 }}/>
+            <Input placeholder="Buscar..." bordered clearable />
             
-            <NextLink href="/favorites" passHref>
-                <Link css={{ marginRight: '10px' }}>
-                    <Text color='white'>Favoritos</Text>
-                </Link>
-            </NextLink>
+            
 
         </div>
     )

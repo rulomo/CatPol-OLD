@@ -11,14 +11,6 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 
-export interface Info {
-  count: number;
-  pages: number;
-  next: string;
-  prev: string;
-  hasNext: boolean;
-}
-
 interface Infraccio {
   infraccio: OrdenancaShort;
 }
@@ -53,21 +45,15 @@ const HomePage: NextPage = (props) => {
   }
 
   useEffect(() => {
-
     fetchData()
       .catch(console.error);
-
   }, [])
-
-  const handleNext = () => {
-    return fetchData();
-  }
 
   return (
     <Layout title='Llista Infraccions'>
       <InfiniteScroll
         dataLength={data?.info?.currentPage || 1 * 30 || 0}
-        next={handleNext}
+        next={fetchData}
         hasMore={data?.info?.hasNext || false}
         loader={<h4>...Loading</h4>}
       >

@@ -4,11 +4,12 @@ import { Grid } from '@nextui-org/react';
 
 
 import { Layout } from '../components/layouts';
-import { OrdenancaShort, OrdenancaStandard } from '../interfaces';
+import { Data, OrdenancaShort, OrdenancaStandard } from '../interfaces';
 
 import { CardInfraccio } from '../components/ui';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import TrackVisibility from 'react-on-screen';
+
+
 
 export interface Info {
   count: number;
@@ -22,19 +23,13 @@ interface Infraccio {
   infraccio: OrdenancaShort;
 }
 
-const CardGrid:NextPage<Infraccio> = ({infraccio}) => {
+const CardGrid: NextPage<Infraccio> = ({ infraccio }) => {
 
   return (
-    <Grid className='SOLOGRID' xs={12} sm={6} md={4} lg={3} css={{ mb: -15, height:300 }}>
-      <TrackVisibility offset={350}>
-      {( {isVisible}) =>{
-        console.log(`visible ${isVisible}${infraccio.articulo}`)
-        return isVisible && <CardInfraccio infraccio={infraccio} />}}
-      
-      </TrackVisibility>
+    <Grid xs={12} sm={6} md={4} lg={3} css={{ mb: -15 }}>
+      <CardInfraccio infraccio={infraccio} />
     </Grid>
   )
-
 }
 
 
@@ -43,20 +38,18 @@ const CardGrid:NextPage<Infraccio> = ({infraccio}) => {
 
 const HomePage: NextPage = (props) => {
 
-  const [infraccions, setinfraccions] = useState<OrdenancaStandard[]>([])
-  const [info, setinfo] = useState<Info>()
-  const [page, setpage] = useState(1)
-
-
+  const [data, setdata] = useState<Data>()
 
   const fetchData = async () => {
-
-    const { results: data, info } = await fetch(
-      `api/manresa?page=${page}`
+    const datas = await fetch(
+      `api/manresa?page=${data?.info.nextPage || 1}`
     ).then((result) => result.json())
-    setinfraccions(prev => prev?.concat(data) || [])
-    setinfo(info || "")
-    setpage(prev => prev + 1)
+    setdata((prevState) => ({
+      ...prevState,
+      results: prevState?.results?prevState?.results.concat(datas.results):datas.results,
+      info:datas.info
+    }))
+
   }
 
   useEffect(() => {
@@ -73,15 +66,15 @@ const HomePage: NextPage = (props) => {
   return (
     <Layout title='Llista Infraccions'>
       <InfiniteScroll
-        dataLength={page * 30 || 0}
+        dataLength={data?.info?.currentPage || 1 * 30 || 0}
         next={handleNext}
-        hasMore={info?.hasNext || false}
+        hasMore={data?.info?.hasNext || false}
         loader={<h4>...Loading</h4>}
       >
         <Grid.Container gap={2} justify='flex-start' css={{ mt: 0, p: 0 }}>
           {
-            infraccions && infraccions.map((infraccio) => (              
-                    <CardGrid key={infraccio.id} infraccio={infraccio} />
+            data?.results && data?.results.map((infraccio) => (
+              <CardGrid key={infraccio.id} infraccio={infraccio} />
             ))
 
           }

@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import { Card, Text, Row, Divider } from "@nextui-org/react";
 import { OrdenancaShort } from "../../interfaces";
 import TrackVisibility from 'react-on-screen';
-
 interface Infraccio {
   infraccio: OrdenancaShort;
 }
@@ -10,18 +9,20 @@ interface Infraccio {
 export const CardInfraccio: NextPage<Infraccio> = ({ infraccio }) => {
 
   return (
-    <TrackVisibility>
-     {({ isVisible }) => {console.log(`${isVisible} infraccio ${infraccio.articulo}${infraccio.apartado}${infraccio.opcion}`)}}
-      <Card
-        hoverable
-        clickable
-        bordered
-        color="primary"
-        css={{ borderColor: '$gray700', px: 5, py: 0, }}
-      >
+    <Card
+    hoverable
+    clickable
+    bordered
+    color="primary"
+    css={{ borderColor: '$gray700', px: 5, py: 0, }}
+    >
 
+        {console.log("RENDERRRRRRRRRRRRRRRR")}
         <Card.Header css={{ py: 2, pb: 1, jc: 'center' }}>
           <Text size={14} transform='capitalize'>{infraccio.norma}</Text>
+          <TrackVisibility offset={350}>
+          {/* {({ isVisible }) => console.log(isVisible ? `Visible`:`No visible`)} */}
+          </TrackVisibility>
         </Card.Header>
         <Divider css={{ background: '$white' }} />
         <Card.Body css={{ py: 2, px: 5 }}>
@@ -60,16 +61,16 @@ export const CardInfraccio: NextPage<Infraccio> = ({ infraccio }) => {
             </div>
           </Row>
 
-        </Card.Body>
+        
         <Divider css={{ background: '$white' }} />
-        <Card.Body css={{ py: 2, px: 5 }}>
+        
           <Row justify='flex-start'>
             <Text size={14}>{infraccio.texto}</Text>
           </Row>
         </Card.Body>
 
       </Card>
-    </TrackVisibility>
+    
   )
 }
 

@@ -27,3 +27,17 @@ export interface OrdenancaShort {
     materia: string;    
 }
 
+export interface Data {
+    info:    Info;
+    results: OrdenancaStandard[];
+}
+
+export interface Info {
+    count:   number;
+    pages:   number;
+    next:    string;
+    prev:    string;
+    hasNext: boolean;
+    currentPage:number;
+    nextPage:string;
+}

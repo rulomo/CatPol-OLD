@@ -55,7 +55,7 @@ const getInfraccions = async (req, res) => {
 
     return res
         .status(200)
-        .send({ info: { count, pages, next, prev, hasNext }, results: data });
+        .send({ info: { count, pages, next,currentPage:pagevalid,nextPage, prev, hasNext }, results: data });
 };
 
 export default getInfraccions;

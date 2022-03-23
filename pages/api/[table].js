@@ -12,14 +12,17 @@ const getInfraccions = async (req, res) => {
 
     const { count } = await supabase
         .from("manresa_circulacio")
-        .select("*", { count: "exact" });
+        .select("*", { count: "exact", head: true });
+    
     const pages =
-        count % 30 > 0
-            ? Number((count / 30).toFixed()) + 1
-            : (count / 30).toFixed();
-
+        count % 30 > 0 ?
+            Number((count / 30).toFixed()) + 1 :
+            (count / 30).toFixed();
+   
     const pagevalid =
-        parseInt(page) > 0 && parseInt(page) <= pages ? parseInt(page) : null;
+        parseInt(page) > 0 && parseInt(page) <= pages ? 
+        parseInt(page) : 
+        null;
 
     if (!pagevalid)
         return res
@@ -30,16 +33,19 @@ const getInfraccions = async (req, res) => {
     const prevPage = pagevalid ? pagevalid - 1 : null;
 
     const next =
-        nextPage && nextPage <= pages ? `api/${table}/?page=${nextPage}` : null;
+        nextPage && nextPage <= pages ? 
+        `api/${table}/?page=${nextPage}` : 
+        null;
+    
     const prev =
-        prevPage && prevPage >= 1 ? `api/${table}/?page=${prevPage}` : null;
+        prevPage && prevPage >= 1 ? 
+        `api/${table}/?page=${prevPage}` :
+         null;
+
     const hasNext = next ? true : false;
 
-    const minRange= (pagevalid - 1) * 30;
-    const maxRange= pagevalid * 30 - 1;
-
-    console.log({minRange})
-    console.log({maxRange})
+    const minRange = (pagevalid - 1) * 30;
+    const maxRange = pagevalid * 30 - 1;
 
     const { data } = await supabase
         .from("manresa_circulacio")

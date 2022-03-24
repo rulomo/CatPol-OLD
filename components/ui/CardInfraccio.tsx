@@ -12,9 +12,8 @@ export const CardInfraccio: NextPage<Infraccio> = ({ infraccio, setisVisible }) 
   
   
   return (
-    <Card
-    hoverable
-    clickable
+    <Card    
+    clickable 
     bordered
     color="primary"
     css={{ borderColor: '$gray700', px: 5, py: 0, }}   
@@ -66,7 +65,7 @@ export const CardInfraccio: NextPage<Infraccio> = ({ infraccio, setisVisible }) 
         <Divider css={{ background: '$white' }} />
 
         <Row justify='flex-start'>
-          <Text size={14}>{infraccio.texto}</Text>
+          <Text size={14} css={{overflow:'hidden',textOverflow:'ellipsis',display:'-webkit-box',lineClamp:2, overflowClipBox:'unset', boxOrient:'vertical'}} >{infraccio.texto}</Text>
         </Row>
       </Card.Body>
 

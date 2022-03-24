@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import { Grid } from '@nextui-org/react';
 
@@ -8,6 +8,7 @@ import { Data, OrdenancaShort, OrdenancaStandard } from '../interfaces';
 
 import { CardInfraccio } from '../components/ui';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import TrackVisibility from 'react-on-screen';
 
 
 
@@ -16,12 +17,21 @@ interface Infraccio {
 }
 
 const CardGrid: NextPage<Infraccio> = ({ infraccio }) => {
+  const [isVisible, setisVisible] = useState(true)
 
-  return (
-    <Grid xs={12} sm={6} md={4} lg={3} css={{ mb: -15 }}>
-      <CardInfraccio infraccio={infraccio} />
+
+
+  return ( 
+    <Grid xs={12} sm={6} md={4} lg={3} css={{ mb: -15, height: '250px' }} >
+       <TrackVisibility offset={750}>
+        {({ isVisible }) => setisVisible(isVisible)}
+        </TrackVisibility>
+        
+        {isVisible&& <CardInfraccio infraccio={infraccio}/>}
+        {!isVisible&& <div>LOADINNGGGGG</div>}
     </Grid>
-  )
+    )
+
 }
 
 
@@ -38,8 +48,8 @@ const HomePage: NextPage = (props) => {
     ).then((result) => result.json())
     setdata((prevState) => ({
       ...prevState,
-      results: prevState?.results?prevState?.results.concat(datas.results):datas.results,
-      info:datas.info
+      results: prevState?.results ? prevState?.results.concat(datas.results) : datas.results,
+      info: datas.info
     }))
 
   }

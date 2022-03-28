@@ -8,7 +8,7 @@ interface Infraccio {
   infraccio: OrdenancaShort;
 }
 
-export const CardInfraccio: NextPage<Infraccio> = ({ infraccio, setisVisible }) => {
+export const CardInfraccio: NextPage<Infraccio> = ({ infraccio }) => {
   
   
   return (

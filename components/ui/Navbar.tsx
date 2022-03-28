@@ -8,6 +8,7 @@ export const Navbar = () => {
     const { theme } = useTheme()
 
     return (
+       
         <div style={{
             display: 'flex',
             height:'76px',
@@ -32,10 +33,10 @@ export const Navbar = () => {
                 </Link>
             </NextLink>            
             <Spacer css={{ flex: 1 }}/>
-            <Input placeholder="Buscar..." bordered clearable />
+            <Input id='infraction-search' placeholder="Buscar..." bordered clearable aria-label="Search" />
             
             
-
+            
         </div>
     )
 };

@@ -4,12 +4,16 @@ import { NextUIProvider } from '@nextui-org/react';
 import { darkTheme } from '../themes';
 
 import '../styles/globals.css';
+import { SearchContextProvider } from '../context';
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <NextUIProvider theme={darkTheme}>
-      <Component {...pageProps} />
-    </NextUIProvider>
+    <SearchContextProvider>
+      <NextUIProvider theme={darkTheme}>
+        <Component {...pageProps} />
+      </NextUIProvider>
+    </SearchContextProvider>
   )
 }
 

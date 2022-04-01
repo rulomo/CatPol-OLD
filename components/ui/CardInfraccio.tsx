@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NextPage } from "next";
 import { Card, Text, Row, Divider } from "@nextui-org/react";
 import { OrdenancaShort } from "../../interfaces";
-import TrackVisibility from 'react-on-screen';
 
 interface Infraccio {
   infraccio: OrdenancaShort;
@@ -44,8 +43,7 @@ export const CardInfraccio: NextPage<Infraccio> = ({ infraccio }) => {
             </Text>
 
           </div>
-        </Row>
-
+        </Row>        
         <Row justify='space-between' >
           <div style={{ display: 'flex' }}>
             <Text size={14} transform='capitalize'>calificació:</Text>

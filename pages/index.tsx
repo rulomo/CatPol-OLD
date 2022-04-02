@@ -1,28 +1,15 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import {  useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
+
 import { Grid, Loading } from '@nextui-org/react';
-
-
-import { Layout } from '../components/layouts';
-import { Data, OrdenancaShort } from '../interfaces';
-
-import { CardInfraccio } from '../components/ui';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
 import { useSearchContext } from '../context';
 
+import { Layout } from '../components/layouts';
+import { Data  } from '../interfaces';
+import { CardGrid} from '../components/ui';
 
-interface Infraccio {
-  infraccio: OrdenancaShort;
-}
-
-const CardGrid: NextPage<Infraccio> = memo(({ infraccio }) => {
-  return (
-    <Grid xs={12} sm={6} md={4} lg={4} css={{ mb: -15,height: '250px'}} >
-      <CardInfraccio infraccio={infraccio} />
-    </Grid>
-  )
-})
-CardGrid.displayName = "CardInfraccio"
 
 
 const HomePage: NextPage = (props) => {
@@ -82,7 +69,7 @@ const HomePage: NextPage = (props) => {
         >
           <Grid.Container gap={2} justify='flex-start' css={{ mt: 0, p: 0 }}>
             {
-              data?.results && data?.results.map((infraccio) => (
+              data?.results && data?.results.map((infraccio) => (                
                 <CardGrid key={infraccio.id} infraccio={infraccio} />
               ))}
           </Grid.Container>

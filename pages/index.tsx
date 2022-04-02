@@ -1,10 +1,10 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import { Grid, Loading } from '@nextui-org/react';
 
 
 import { Layout } from '../components/layouts';
-import { Data, OrdenancaShort, OrdenancaStandard } from '../interfaces';
+import { Data, OrdenancaShort } from '../interfaces';
 
 import { CardInfraccio } from '../components/ui';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -17,7 +17,7 @@ interface Infraccio {
 
 const CardGrid: NextPage<Infraccio> = memo(({ infraccio }) => {
   return (
-    <Grid xs={12} sm={6} md={4} lg={4} css={{ mb: -15, height: '250px' }} >
+    <Grid xs={12} sm={6} md={4} lg={4} css={{ mb: -15,height: '250px'}} >
       <CardInfraccio infraccio={infraccio} />
     </Grid>
   )
@@ -31,7 +31,8 @@ const HomePage: NextPage = (props) => {
   const [dataSearch, setdataSearch] = useState<Data>();
 
   const { valueSearch } = useSearchContext();
-  
+  const lastSearch = useRef<string>();
+
 
   const fetchData = async () => {
     const dataByPage = await fetch(
@@ -44,15 +45,24 @@ const HomePage: NextPage = (props) => {
     }))
   }
   const fetchDataSearch = async () => {
-    let param = encodeURIComponent(valueSearch)
-    const dataBySearch = await fetch(
-      `api/manresa?search=${param}`
-    ).then((result) => result.json())
-    setdataSearch(dataBySearch)
+    let param = encodeURIComponent(valueSearch);
+    if (param !== lastSearch.current) {      
+      const dataBySearch = await fetch(
+        `api/manresa?search=${param}`
+      ).then((result) => result.json())
+      lastSearch.current = param;
+      setdataSearch(dataBySearch)
+    }
   }
 
-  useEffect(() => {
-    valueSearch?.length && fetchDataSearch()
+
+  useEffect(() => {    
+    const delaySearch = setTimeout(() => {
+      valueSearch?.length >= 1 && fetchDataSearch()
+    }, 500);
+    return () => {
+      clearTimeout(delaySearch)
+    }
   }, [valueSearch])
 
   useEffect(() => {

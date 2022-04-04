@@ -1,4 +1,4 @@
-import {  useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 
 import { Grid, Loading } from '@nextui-org/react';
@@ -7,8 +7,8 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSearchContext } from '../context';
 
 import { Layout } from '../components/layouts';
-import { Data  } from '../interfaces';
-import { CardGrid} from '../components/ui';
+import { Data } from '../interfaces';
+import { CardGrid } from '../components/ui';
 
 
 
@@ -21,7 +21,7 @@ const HomePage: NextPage = (props) => {
   const lastSearch = useRef<string>();
 
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     const dataByPage = await fetch(
       `api/manresa?page=${data?.info.nextPage || 1}`
     ).then((result) => result.json())
@@ -30,27 +30,32 @@ const HomePage: NextPage = (props) => {
       results: prevState?.results ? prevState?.results.concat(dataByPage.results) : dataByPage.results,
       info: dataByPage.info
     }))
-  }
-  const fetchDataSearch = async () => {
+  }, [data?.info.nextPage])
+
+  const fetchDataSearch = useCallback(async () => {
     let param = encodeURIComponent(valueSearch);
-    if (param !== lastSearch.current) {      
+    if (param !== lastSearch.current) {
       const dataBySearch = await fetch(
         `api/manresa?search=${param}`
       ).then((result) => result.json())
       lastSearch.current = param;
       setdataSearch(dataBySearch)
     }
-  }
+  },
+    [valueSearch]
+  );
 
 
-  useEffect(() => {    
+
+
+  useEffect(() => {
     const delaySearch = setTimeout(() => {
       valueSearch?.length >= 1 && fetchDataSearch()
     }, 500);
     return () => {
       clearTimeout(delaySearch)
     }
-  }, [valueSearch])
+  }, [fetchDataSearch, valueSearch])
 
   useEffect(() => {
     fetchData()
@@ -69,7 +74,7 @@ const HomePage: NextPage = (props) => {
         >
           <Grid.Container gap={2} justify='flex-start' css={{ mt: 0, p: 0 }}>
             {
-              data?.results && data?.results.map((infraccio) => (                
+              data?.results && data?.results.map((infraccio) => (
                 <CardGrid key={infraccio.id} infraccio={infraccio} />
               ))}
           </Grid.Container>

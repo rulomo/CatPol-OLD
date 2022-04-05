@@ -1,6 +1,6 @@
 
 import NextLink from 'next/link';
-import { Spacer, Text, useTheme, Link, Input, FormElement } from '@nextui-org/react';
+import { Spacer, Text, useTheme, Link, Input, FormElement, Loading } from '@nextui-org/react';
 import React, { useState } from 'react';
 import { useSearchContext } from '../../context';
 
@@ -23,7 +23,7 @@ export const Navbar = () => {
 
         <div style={{
             display: 'flex',
-            height: '76px',
+            height: '60px',
             width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
@@ -39,14 +39,16 @@ export const Navbar = () => {
             </NextLink>
             <Spacer css={{ flex: 1 }} />
             <Input
+                width='14em'
                 id='infraction-search'
+                size="sm" 
+                type={"search"}       
+                borderWeight={ "normal"}         
                 placeholder="Buscar..."
                 bordered
-                clearable
                 aria-label="Search"
                 onChange={handleInputChange}
-                // value={value}
-                css={{mr:15}}
+                css={{mr:0,mt:5}}
             />
         </div>
     )

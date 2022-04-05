@@ -39,7 +39,7 @@ const getInfraccions = async (req, res) => {
     if (!pagevalid)
         return res
             .status(400)
-            .send({ error: "El numero de pagines no és vàlid" });
+            .send({ error: "El numero de pagina no és vàlid" });
 
     const nextPage = pagevalid ? pagevalid + 1 : null;
     const prevPage = pagevalid ? pagevalid - 1 : null;

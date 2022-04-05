@@ -10,7 +10,7 @@ interface Infraccio {
 
 export const CardGrid: NextPage<Infraccio> = memo(({ infraccio }) => {
   return (
-    <Grid xs={12} sm={6} md={4} lg={4} css={{ mb: -15,height: '250px'}} >
+    <Grid xs={12} sm={6} md={4} lg={4} css={{ mb: -15,height: '200px'}} >
       <CardInfraccio infraccio={infraccio} />
     </Grid>
   )

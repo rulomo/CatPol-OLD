@@ -20,6 +20,7 @@ const HomePage: NextPage = (props) => {
   const { valueSearch } = useSearchContext();
   const lastSearch = useRef<string>();
 
+  
 
   const fetchData = useCallback(async () => {
     const dataByPage = await fetch(

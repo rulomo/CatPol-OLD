@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "context/SearchContext.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "context/SearchContext.js", "pages/api/[table].js"],
   "exclude": ["node_modules"]
 }

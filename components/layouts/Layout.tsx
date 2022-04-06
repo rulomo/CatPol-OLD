@@ -12,7 +12,7 @@ interface Props {
 export const Layout: FC<Props> = ({ children, title }) => {
   return (
       
-      <Container lg >
+      <Container lg>
         <Head>
             <title>{ title || 'CatPol' }</title>
             <meta name="author" content="Rulomo" />
